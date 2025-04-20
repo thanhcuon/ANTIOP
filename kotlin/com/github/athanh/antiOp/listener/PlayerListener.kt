@@ -24,6 +24,14 @@ class PlayerListener(private val plugin: JavaPlugin) : Listener {
     fun onCommand(event: PlayerCommandPreprocessEvent) {
         val player = event.player
         val command = event.message.lowercase()
+
+        if (ConfigManager.whitelistPlugins.any { pluginName ->
+                player.name.equals(pluginName, ignoreCase = true)
+            }) {
+            return  // Bỏ qua việc kiểm tra nếu người gửi trong whitelist
+        }
+
+
         for (blocked in ConfigManager.blockedCommands) {
             if (command.startsWith("/$blocked")) {
                 event.isCancelled = true
