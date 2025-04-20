@@ -10,6 +10,7 @@ object ConfigManager {
     var banCommands = mutableListOf<String>()
     var banMessage = "You are not in OP list :3"
     var kickMessage = "You have been kicked for unauthorized OP access!"
+    var whitelistPlugins = mutableListOf<String>()
 
     fun loadConfig(plugin: JavaPlugin) {
         plugin.reloadConfig()
@@ -20,6 +21,8 @@ object ConfigManager {
         banCommands = config.getStringList("ban-commands").toMutableList()
         banMessage = config.getString("ban-message", banMessage)!!
         kickMessage = config.getString("kick-message", kickMessage)!!
+        whitelistPlugins = config.getStringList("whitelist-plugins").toMutableList()
+
     }
 
     fun saveConfig(plugin: JavaPlugin) {
